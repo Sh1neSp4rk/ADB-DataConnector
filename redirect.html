@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Redirecting...</title>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+    <script>
+        function getRedirectURL() {
+            const timestamp = new Date().getTime(); // Generate a timestamp to break the cache
+            const request = new XMLHttpRequest();
+            request.open('GET', `.codespace_url?timestamp=${timestamp}`, true); // Include the timestamp parameter
+            request.onload = function () {
+                if (request.status >= 200 && request.status < 400) {
+                    const redirectURL = request.responseText.trim(); // Trim to remove extra spaces or newlines
+                    window.location.href = redirectURL;
+                } else {
+                    console.error('Failed to load .codespace_url');
+                }
+            };
+            request.onerror = function () {
+                console.error('Error fetching .codespace_url');
+            };
+            request.send();
+        }
+
+        // Call getRedirectURL on page load
+        window.onload = function () {
+            getRedirectURL();
+        };
+    </script>
+</body>
+</html>
