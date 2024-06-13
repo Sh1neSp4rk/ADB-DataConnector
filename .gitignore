@@ -1,0 +1,4 @@
+.credentials.yaml
+.codespaceurl
+logs/
+__pycache__
